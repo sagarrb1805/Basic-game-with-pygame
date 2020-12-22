@@ -1,0 +1,11 @@
+import pygame # importing module
+
+pygame.init() # initializing all pygame modules
+pygame.font.init() #initializing font module in pygame seperatly
+...
+...
+...
+pygame.quit() # for closing all the opened modules
+blit() # function for displaying images in screeen
+
+
