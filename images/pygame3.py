@@ -77,8 +77,7 @@ while run:
     if not man.isJump:
         if keys[pygame.K_SPACE]:
             man.isJump = True
-            man.right = False
-            man.left = False
+        
             man.walkCount = 0
     else:
         if man.jumpCount >= -10:
