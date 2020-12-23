@@ -12,7 +12,7 @@ walkLeft = [pygame.image.load("L1.png"), pygame.image.load("L2.png"), pygame.ima
             pygame.image.load("L6.png"), pygame.image.load("L7.png"), pygame.image.load("L8.png"),
             pygame.image.load("L9.png")]
 bg = pygame.image.load("bg.jpg")
-char = pygame.image.load("standing.png")
+
 bulletSound = pygame.mixer.Sound("bullet.mp3")
 hitSound = pygame.mixer.Sound("hit.mp3")
 music = pygame.mixer.music.load("music.mp3")
