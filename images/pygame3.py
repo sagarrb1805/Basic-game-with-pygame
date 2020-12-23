@@ -64,11 +64,11 @@ class player(object):
         self.y = 385
         self.walkCount = 0
         font1 = pygame.font.SysFont("comiCsans", 100)
-        text = font1.render("-5", True, (255,0,0))
+        text = font1.render("-2", True, (255,0,0))
         win.blit(text, (250 - (text.get_width()/2), 250))
         pygame.display.update()
         i = 0
-        while i < 10:
+        while i < 4:
             pygame.time.delay(10)
             i += 1
             for event in pygame.event.get():
@@ -130,6 +130,7 @@ class enemy(object):
                 self.walkCount = 0
 
     def draw(self, win):
+        self.visible = True
         self.move()
         if self.visible:
             if self.walkCount + 1 >= 33:
@@ -146,11 +147,17 @@ class enemy(object):
             # pygame.draw.rect(win, (255, 0, 0), self.hitbox, 2)
 
     def hit(self):
+
         if self.health > 0:
             self.health -= 1
         else:
             self.visible = False
-        print("hit")
+            self.x = 30
+            self.y = 390
+            self.path = [self.x, self.end]
+            self.walkCount = 0
+            self.health = 10
+            self.draw(win)
 
 
 def redrawGameWindow():
@@ -170,14 +177,16 @@ font = pygame.font.SysFont("comicsans", 30, True, True)
 bullets = []
 shootLoop = 0
 man = player(300, 385, 64, 64)
-goblin = enemy(100, 390, 64, 64, 450)
+goblin = enemy(30, 390, 64, 64, 450)
 run = True
 while run:
+    pygame.init()
     if goblin.visible:
         if man.hitbox[1] < goblin.hitbox[1] + goblin.hitbox[3] and man.hitbox[1] + man.hitbox[3] > goblin.hitbox[1]:
             if man.hitbox[0] + man.hitbox[2] > goblin.hitbox[0] and man.hitbox[0] < goblin.hitbox[0] + goblin.hitbox[2]:
                 man.hit()
-                score -= 5
+                score -= 2
+                man.draw(win)
 
     if shootLoop > 0:
         shootLoop += 1
@@ -193,6 +202,7 @@ while run:
                     goblin.hit()
                     score += 1
                     bullets.pop(bullets.index(bullet))
+
 
         if 500 > bullet.x > 0:
             bullet.x += bullet.vel
@@ -240,7 +250,7 @@ while run:
 
     clock.tick(27)
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
             run = False
     redrawGameWindow()
     pygame.display.update()
